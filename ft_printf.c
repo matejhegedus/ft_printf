@@ -6,7 +6,7 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:37:55 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/10/23 18:29:13 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/10/23 22:26:25 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,15 @@ int	ft_printf(const char *str, ...)
 	i = 0;
 	while (str[i])
 	{
-		write(1, &str[i], 1);
+		if (str[i] == "%")
+		{
+			i++;
+			if (str[i] == 'c')
+				
+
+		}
+		else
+			write(1, &str[i], 1);
 		i++;
 	}
 	return (i);
