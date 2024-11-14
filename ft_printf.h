@@ -6,13 +6,13 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:39:14 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/14 18:09:48 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:19:24 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-int		ft_printf(const char *, ...);
+int		ft_printf(const char *str, ...);
 
 #endif

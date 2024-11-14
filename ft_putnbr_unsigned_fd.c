@@ -6,10 +6,9 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 18:03:40 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/14 18:19:12 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:19:54 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <unistd.h>
 #include <stdbool.h>
