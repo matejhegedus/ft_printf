@@ -13,13 +13,13 @@ $(NAME): $(OBJ)
 	ar rs $(NAME) $(OBJ)
 
 %.o: %.c $(HDR)
-	$(CC) -c $(CFLAGS) -g -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 libft/libft.a:
 	(cd libft && make)
 
 a.out: $(OBJ)
-	$(CC) $(CFLAGS) -g -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 test: a.out
 	./a.out

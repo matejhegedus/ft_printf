@@ -6,7 +6,7 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:37:55 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/18 17:53:28 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:59:48 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 void	print_conversion(char conv_c, va_list args)
 {
+	// print_conversion has to return the number of chars printed
 	if (conv_c == '%')
 		ft_putchar_fd('%', FD);
 	else if (conv_c == 'c')
@@ -37,8 +38,11 @@ void	print_conversion(char conv_c, va_list args)
 
 int	ft_printf(const char *str, ...)
 {
+	// ft_printf has to return the number of chars printed
 	va_list	args;
 	int		i;
+	int		char_count;
+	
 
 	va_start(args, str);
 	i = 0;
@@ -56,110 +60,123 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (i);
 }
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <limits.h>
-// int main(void)
-// {
-// 	printf("1:\n");
-// 	printf   ("orig: %%c character '%c'\n", '@');
-// 	ft_printf("my  : %%c character '%c'\n", '@');
-// 	printf   ("orig: %%c character '%c'\n", 't');
-// 	ft_printf("my  : %%c character '%c'\n", 't');
-// 	printf   ("orig: %%c character '%c'\n", 123456);
-// 	ft_printf("my  : %%c character '%c'\n", 123456);
-// 	printf   ("orig: %%c character '%c'\n", 0);
-// 	ft_printf("my  : %%c character '%c'\n", 0);
-// 	printf   ("orig: %%c character '%c'\n", -25);
-// 	ft_printf("my  : %%c character '%c'\n", -25);
-// 	printf   ("orig: %%c character '%c'\n", INT_MAX);
-// 	ft_printf("my  : %%c character '%c'\n", INT_MAX);
-// 	printf   ("orig: %%c character '%c'\n", INT_MIN);
-// 	ft_printf("my  : %%c character '%c'\n", INT_MIN);
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+int main(void)
+{
+	int i;
 
-// 	printf("\n");
-// 	printf("2:\n");
+	i = printf   ("%%%% %c%c%c%c: This is a %s\n and numbers%d%i, pointer: %p",
+		't', 'e', 's', 't', "test string", -123, -234, (void *)"string");
+	fflush(stdout);
+	write(1, "\n", 1);
+	printf("%d\n", i);	
+	i = ft_printf("%%%% %c%c%c%c: This is a %s\n and numbers%d%i, pointer: %p",
+		't', 'e', 's', 't', "test string", -123, -234, (void *)"string");
+	write(1, "\n", 1);
+	printf("%d\n", i);
+	
 
-// 	printf   ("orig: %%s string \"%s\"\n", "This is a test string");
-// 	ft_printf("my  : %%s string \"%s\"\n", "This is a test string");
-// 	printf   ("orig: %%s string \"%s\"\n", "");
-// 	ft_printf("my  : %%s string \"%s\"\n", "");
-// 	printf   ("orig: %%s string \"%s\"\n", "  !@$  !@  %\t\b\0");
-// 	ft_printf("my  : %%s string \"%s\"\n", "  !@$  !@  %\t\b\0");
-// 	printf   ("orig: %%s string \"%s\"\n", (char *)NULL);
-// 	ft_printf("my  : %%s string \"%s\"\n", (char *)NULL);
+	printf("1:\n");
+	printf   ("orig: %%c character '%c'\n", '@');
+	ft_printf("my  : %%c character '%c'\n", '@');
+	printf   ("orig: %%c character '%c'\n", 't');
+	ft_printf("my  : %%c character '%c'\n", 't');
+	printf   ("orig: %%c character '%c'\n", 123456);
+	ft_printf("my  : %%c character '%c'\n", 123456);
+	printf   ("orig: %%c character '%c'\n", 0);
+	ft_printf("my  : %%c character '%c'\n", 0);
+	printf   ("orig: %%c character '%c'\n", -25);
+	ft_printf("my  : %%c character '%c'\n", -25);
+	printf   ("orig: %%c character '%c'\n", INT_MAX);
+	ft_printf("my  : %%c character '%c'\n", INT_MAX);
+	printf   ("orig: %%c character '%c'\n", INT_MIN);
+	ft_printf("my  : %%c character '%c'\n", INT_MIN);
 
-// 	printf("\n");
-// 	printf("3:\n");
+	printf("\n");
+	printf("2:\n");
 
-// 	void *ptr = malloc(20);
-// 	printf   ("orig: %%p void ptr %p\n", ptr);
-// 	ft_printf("my  : %%p void ptr %p\n", ptr);
-// 	free(ptr);
-// 	printf   ("orig: %%p void ptr %p\n", NULL);
-// 	ft_printf("my  : %%p void ptr %p\n", NULL);
+	printf   ("orig: %%s string \"%s\"\n", "This is a test string");
+	ft_printf("my  : %%s string \"%s\"\n", "This is a test string");
+	printf   ("orig: %%s string \"%s\"\n", "");
+	ft_printf("my  : %%s string \"%s\"\n", "");
+	printf   ("orig: %%s string \"%s\"\n", "  !@$  !@  %\t\b\0");
+	ft_printf("my  : %%s string \"%s\"\n", "  !@$  !@  %\t\b\0");
+	printf   ("orig: %%s string \"%s\"\n", (char *)NULL);
+	ft_printf("my  : %%s string \"%s\"\n", (char *)NULL);
 
-// 	printf("\n");
-// 	printf("4:\n");
+	printf("\n");
+	printf("3:\n");
 
-// 	printf   ("orig: %%d decimal * %d\n", -123456);
-// 	ft_printf("my  : %%d decimal * %d\n", -123456);
-// 	printf   ("orig: %%d decimal * %d\n", INT_MAX);
-// 	ft_printf("my  : %%d decimal * %d\n", INT_MAX);
-// 	printf   ("orig: %%d decimal * %d\n", INT_MIN);
-// 	ft_printf("my  : %%d decimal * %d\n", INT_MIN);
-// 	printf   ("orig: %%d decimal * %d\n", 0);
-// 	ft_printf("my  : %%d decimal * %d\n", 0);
+	void *ptr = malloc(20);
+	printf   ("orig: %%p void ptr %p\n", ptr);
+	ft_printf("my  : %%p void ptr %p\n", ptr);
+	free(ptr);
+	printf   ("orig: %%p void ptr %p\n", NULL);
+	ft_printf("my  : %%p void ptr %p\n", NULL);
 
-// 	printf("\n");
-// 	printf("5:\n");
+	printf("\n");
+	printf("4:\n");
 
-// 	printf   ("orig: %%i decimal * %i\n", -123456);
-// 	ft_printf("my  : %%i decimal * %i\n", -123456);
-// 	printf   ("orig: %%i decimal * %i\n", INT_MAX);
-// 	ft_printf("my  : %%i decimal * %i\n", INT_MAX);
-// 	printf   ("orig: %%i decimal * %i\n", INT_MIN);
-// 	ft_printf("my  : %%i decimal * %i\n", INT_MIN);
-// 	printf   ("orig: %%i decimal * %i\n", 0);
-// 	ft_printf("my  : %%i decimal * %i\n", 0);
+	printf   ("orig: %%d decimal %d\n", -123456);
+	ft_printf("my  : %%d decimal %d\n", -123456);
+	printf   ("orig: %%d decimal %d\n", INT_MAX);
+	ft_printf("my  : %%d decimal %d\n", INT_MAX);
+	printf   ("orig: %%d decimal %d\n", INT_MIN);
+	ft_printf("my  : %%d decimal %d\n", INT_MIN);
+	printf   ("orig: %%d decimal %d\n", 0);
+	ft_printf("my  : %%d decimal %d\n", 0);
 
-// 	printf("\n");
-// 	printf("6:\n");
+	printf("\n");
+	printf("5:\n");
 
-// 	printf   ("orig: %%u unsigned decimal * %u\n", -123456);
-// 	ft_printf("my  : %%u unsigned decimal * %u\n", -123456);
-// 	printf   ("orig: %%u unsigned decimal * %u\n", INT_MAX);
-// 	ft_printf("my  : %%u unsigned decimal * %u\n", INT_MAX);
-// 	printf   ("orig: %%u unsigned decimal * %u\n", UINT_MAX);
-// 	ft_printf("my  : %%u unsigned decimal * %u\n", UINT_MAX);
-// 	printf   ("orig: %%u unsigned decimal * %u\n", INT_MIN);
-// 	ft_printf("my  : %%u unsigned decimal * %u\n", INT_MIN);
-// 	printf   ("orig: %%u unsigned decimal * %u\n", -1);
-// 	ft_printf("my  : %%u unsigned decimal * %u\n", -1);
-// 	printf   ("orig: %%u unsigned decimal * %u\n", 0);
-// 	ft_printf("my  : %%u unsigned decimal * %u\n", 0);
+	printf   ("orig: %%i decimal %i\n", -123456);
+	ft_printf("my  : %%i decimal %i\n", -123456);
+	printf   ("orig: %%i decimal %i\n", INT_MAX);
+	ft_printf("my  : %%i decimal %i\n", INT_MAX);
+	printf   ("orig: %%i decimal %i\n", INT_MIN);
+	ft_printf("my  : %%i decimal %i\n", INT_MIN);
+	printf   ("orig: %%i decimal %i\n", 0);
+	ft_printf("my  : %%i decimal %i\n", 0);
 
-// 	printf("\n");
-// 	printf("7:\n");
+	printf("\n");
+	printf("6:\n");
 
-// 	printf   ("orig: %%x hexadecimal lowercase * %x\n", -1);
-// 	ft_printf("my  : %%x hexadecimal lowercase * %x\n", -1);
-// 	printf   ("orig: %%x hexadecimal lowercase * %x\n", INT_MAX);
-// 	ft_printf("my  : %%x hexadecimal lowercase * %x\n", INT_MAX);
-// 	printf   ("orig: %%x hexadecimal lowercase * %x\n", UINT_MAX);
-// 	ft_printf("my  : %%x hexadecimal lowercase * %x\n", UINT_MAX);
-// 	printf   ("orig: %%x hexadecimal lowercase * %x\n", INT_MIN);
-// 	ft_printf("my  : %%x hexadecimal lowercase * %x\n", INT_MIN);
+	printf   ("orig: %%u unsigned decimal %u\n", -123456);
+	ft_printf("my  : %%u unsigned decimal %u\n", -123456);
+	printf   ("orig: %%u unsigned decimal %u\n", INT_MAX);
+	ft_printf("my  : %%u unsigned decimal %u\n", INT_MAX);
+	printf   ("orig: %%u unsigned decimal %u\n", UINT_MAX);
+	ft_printf("my  : %%u unsigned decimal %u\n", UINT_MAX);
+	printf   ("orig: %%u unsigned decimal %u\n", INT_MIN);
+	ft_printf("my  : %%u unsigned decimal %u\n", INT_MIN);
+	printf   ("orig: %%u unsigned decimal %u\n", -1);
+	ft_printf("my  : %%u unsigned decimal %u\n", -1);
+	printf   ("orig: %%u unsigned decimal %u\n", 0);
+	ft_printf("my  : %%u unsigned decimal %u\n", 0);
 
-// 	printf("\n");
-// 	printf("8:\n");
+	printf("\n");
+	printf("7:\n");
 
-// 	printf   ("orig: %%X hexadecimal uppercase * %X\n", -1);
-// 	ft_printf("my  : %%X hexadecimal uppercase * %X\n", -1);
-// 	printf   ("orig: %%X hexadecimal uppercase * %X\n", INT_MAX);
-// 	ft_printf("my  : %%X hexadecimal uppercase * %X\n", INT_MAX);
-// 	printf   ("orig: %%X hexadecimal uppercase * %X\n", UINT_MAX);
-// 	ft_printf("my  : %%X hexadecimal uppercase * %X\n", UINT_MAX);
-// 	printf   ("orig: %%X hexadecimal uppercase * %X\n", INT_MIN);
-// 	ft_printf("my  : %%X hexadecimal uppercase * %X\n", INT_MIN);
-// }
+	printf   ("orig: %%x hexadecimal lowercase %x\n", -1);
+	ft_printf("my  : %%x hexadecimal lowercase %x\n", -1);
+	printf   ("orig: %%x hexadecimal lowercase %x\n", INT_MAX);
+	ft_printf("my  : %%x hexadecimal lowercase %x\n", INT_MAX);
+	printf   ("orig: %%x hexadecimal lowercase %x\n", UINT_MAX);
+	ft_printf("my  : %%x hexadecimal lowercase %x\n", UINT_MAX);
+	printf   ("orig: %%x hexadecimal lowercase %x\n", INT_MIN);
+	ft_printf("my  : %%x hexadecimal lowercase %x\n", INT_MIN);
+
+	printf("\n");
+	printf("8:\n");
+
+	printf   ("orig: %%X hexadecimal uppercase %X\n", -1);
+	ft_printf("my  : %%X hexadecimal uppercase %X\n", -1);
+	printf   ("orig: %%X hexadecimal uppercase %X\n", INT_MAX);
+	ft_printf("my  : %%X hexadecimal uppercase %X\n", INT_MAX);
+	printf   ("orig: %%X hexadecimal uppercase %X\n", UINT_MAX);
+	ft_printf("my  : %%X hexadecimal uppercase %X\n", UINT_MAX);
+	printf   ("orig: %%X hexadecimal uppercase %X\n", INT_MIN);
+	ft_printf("my  : %%X hexadecimal uppercase %X\n", INT_MIN);
+}
