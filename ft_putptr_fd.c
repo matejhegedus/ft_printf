@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_unsigned.c                          :+:      :+:    :+:   */
+/*   ft_putptr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 16:15:59 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/18 15:17:46 by mhegedus         ###   ########.fr       */
+/*   Created: 2024/11/18 12:48:39 by mhegedus          #+#    #+#             */
+/*   Updated: 2024/11/18 14:49:28 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "ft_printf_utils.h"
 #include "libft/libft.h"
-#include "ft_printf_utils.h" // for FD
 
 static int	ft_contains_plusminus(char *str)
 {
@@ -48,7 +48,7 @@ static int	ft_contains_duplicates(char *str, int len)
 	return (0);
 }
 
-static void	ft_write_last_digit_rec(unsigned int nbr, char *base, int base_num)
+static void	write_last_digit_long(unsigned long nbr, char *base, int base_num)
 {
 	int		digit;
 	char	c;
@@ -56,11 +56,11 @@ static void	ft_write_last_digit_rec(unsigned int nbr, char *base, int base_num)
 	digit = nbr % base_num;
 	c = base[digit];
 	if (nbr / base_num != 0)
-		ft_write_last_digit_rec(nbr / base_num, base, base_num);
-	write(1, &c, FD);
+		write_last_digit_long(nbr / base_num, base, base_num);
+	write(1, &c, 1);
 }
 
-void	ft_putnbr_base_unsigned(unsigned int nbr, char *base)
+static void	ft_putlong_base_unsigned(unsigned long nbr, char *base)
 {
 	int	base_num;
 
@@ -68,14 +68,17 @@ void	ft_putnbr_base_unsigned(unsigned int nbr, char *base)
 	if (base_num <= 1 || ft_contains_duplicates(base, base_num)
 		|| ft_contains_plusminus(base))
 		return ;
-	ft_write_last_digit_rec(nbr, base, base_num);
+	write_last_digit_long(nbr, base, base_num);
 }
-/*
-#include <stdlib.h>
-int	main(int argc, char **argv)
+
+// prints the address of a pointer
+void	ft_putptr_fd(void *ptr, int fd)
 {
-	if (argc >= 3)
-		ft_putnbr_base(atoi(argv[1]), argv[2]);
-	//ft_putnbr(123);
+	if (ptr == NULL)
+		ft_putstr_fd("(nil)", fd);
+	else
+	{
+		write(1, "0x", 2);
+		ft_putlong_base_unsigned((unsigned long)ptr, "0123456789abcdef");
+	}
 }
-*/
