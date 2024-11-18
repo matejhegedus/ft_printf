@@ -6,7 +6,7 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:37:55 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/18 15:18:33 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/18 17:53:28 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@
 
 void	print_conversion(char conv_c, va_list args)
 {
-	char	c;	
-
 	if (conv_c == '%')
 		ft_putchar_fd('%', FD);
 	else if (conv_c == 'c')
-		ft_putchar_fd(va_arg(args, char), FD);
+		ft_putchar_fd(va_arg(args, int), FD);
 	else if (conv_c == 's')
 		ft_putstr_fd_null(va_arg(args, char *), FD);
 	else if (conv_c == 'p')
