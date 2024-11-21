@@ -1,8 +1,7 @@
 NAME = libftprintf.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRC = ft_printf.c ft_putnbr_unsigned_fd.c ft_putnbr_base_unsigned.c \
-	ft_putptr_fd.c ft_putstr_fd_null.c
+SRC = ft_printf.c print_int.c print_ptr.c print_str_or_null.c print_uint_base.c
 OBJ = $(SRC:.c=.o) libft/libft.a
 HDR = ft_printf.h ft_printf_utils.h ./libft/libft.h
 

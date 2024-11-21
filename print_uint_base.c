@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base_unsigned.c                          :+:      :+:    :+:   */
+/*   print_uint_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:15:59 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/18 15:17:46 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:57:15 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft/libft.h"
 #include "ft_printf_utils.h" // for FD
 
-static int	ft_contains_plusminus(char *str)
+static int	contains_plusminus(char *str)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ static int	ft_contains_plusminus(char *str)
 	return (0);
 }
 
-static int	ft_contains_duplicates(char *str, int len)
+static int	contains_duplicates(char *str, int len)
 {
 	int	i;
 	int	j;
@@ -48,7 +48,8 @@ static int	ft_contains_duplicates(char *str, int len)
 	return (0);
 }
 
-static void	ft_write_last_digit_rec(unsigned int nbr, char *base, int base_num)
+static void	write_last_digit_rec(unsigned int nbr, char *base, int base_num,
+	int *char_count)
 {
 	int		digit;
 	char	c;
@@ -56,19 +57,26 @@ static void	ft_write_last_digit_rec(unsigned int nbr, char *base, int base_num)
 	digit = nbr % base_num;
 	c = base[digit];
 	if (nbr / base_num != 0)
-		ft_write_last_digit_rec(nbr / base_num, base, base_num);
-	write(1, &c, FD);
+		write_last_digit_rec(nbr / base_num, base, base_num, char_count);
+	*char_count += write(1, &c, STDOUT_FILENO);
 }
 
-void	ft_putnbr_base_unsigned(unsigned int nbr, char *base)
+// prints unsigned integer to stdout in given base
+// base "0123456789" for decimal, "0123456789abcdef" for hexadecimal,
+// "01" for binary etc.
+// returns number of characters printed
+int	print_uint_base(unsigned int nbr, char *base)
 {
 	int	base_num;
+	int	char_count;
 
+	char_count = 0;
 	base_num = ft_strlen(base);
-	if (base_num <= 1 || ft_contains_duplicates(base, base_num)
-		|| ft_contains_plusminus(base))
-		return ;
-	ft_write_last_digit_rec(nbr, base, base_num);
+	if (base_num <= 1 || contains_duplicates(base, base_num)
+		|| contains_plusminus(base))
+		return (char_count);
+	write_last_digit_rec(nbr, base, base_num, &char_count);
+	return (char_count);
 }
 /*
 #include <stdlib.h>
