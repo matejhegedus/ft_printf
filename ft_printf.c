@@ -6,7 +6,7 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:37:55 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/21 13:53:53 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:05:48 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	ft_printf(const char *str, ...)
 	int		i;
 	int		char_count;
 
+	if(str == NULL)
+		return (-1);
 	va_start(args, str);
 	char_count = 0;
 	i = 0;
@@ -291,4 +293,12 @@ int	ft_printf(const char *str, ...)
 // 	printf(", returns %d\n", i);
 // 	i = ft_printf("my  : %%X hexadecimal uppercase %X", INT_MIN);
 // 	printf(", returns %d\n", i);
+
+// 	// 9 NULL
+// 	printf("\n");
+// 	printf("9 NULL:\n");
+// 	i = printf   (NULL);
+// 	printf("returns %d\n", i);
+// 	i = ft_printf(NULL);
+// 	printf("returns %d\n", i);
 // }
