@@ -6,7 +6,7 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:37:55 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/21 15:05:48 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/21 16:31:06 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,36 @@ int	print_conversion(char conv_c, va_list args)
 
 	if (conv_c == '%')
 		return (write(STDOUT_FILENO, "%", 1));
-	if (conv_c == 'c')
+	else if (conv_c == 'c')
 	{
 		c = va_arg(args, int);
 		return (write(STDOUT_FILENO, &c, 1));
 	}
-	if (conv_c == 's')
+	else if (conv_c == 's')
 		return (print_str_or_null(va_arg(args, char *)));
-	if (conv_c == 'p')
+	else if (conv_c == 'p')
 		return (print_ptr(va_arg(args, void *)));
-	if (conv_c == 'd' || conv_c == 'i')
+	else if (conv_c == 'd' || conv_c == 'i')
 		return (print_int(va_arg(args, int)));
-	if (conv_c == 'u')
+	else if (conv_c == 'u')
 		return (print_uint_base(va_arg(args, int), "0123456789"));
-	if (conv_c == 'x')
+	else if (conv_c == 'x')
 		return (print_uint_base(va_arg(args, int), "0123456789abcdef"));
-	if (conv_c == 'X')
+	else if (conv_c == 'X')
 		return (print_uint_base(va_arg(args, int), "0123456789ABCDEF"));
-	return (0);
+	else
+		return (-1);
 }
 
+// replicates the function printf()
+// supports conversions %cspdiuxX
+// returns the number of characters printed or -1 if error is encountered
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
 	int		i;
 	int		char_count;
+	int		print_count;
 
 	if(str == NULL)
 		return (-1);
@@ -56,13 +61,13 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			i++;
-			char_count += print_conversion(str[i], args);
+			print_count = print_conversion(str[++i], args);
+			if (print_count == -1)
+				return (-1);
+			char_count += print_count;
 		}
 		else
-		{
 			char_count += write(1, &str[i], 1);
-		}
 		i++;
 	}
 	va_end(args);
@@ -75,14 +80,14 @@ int	ft_printf(const char *str, ...)
 // {
 // 	int i;
 
-// 	i = printf   ("%%%% %c%c%c%c: This is a %s\n and numbers%d%i, pointer: %p",
-// 		't', 'e', 's', 't', "test string", -123, -234, (void *)"string");
+// 	i = printf   ("%%%% %c%c%c%c: This is a %s,\nnumbers %d%i, pointer: %p, \
+// hex: %x or %X", 't', 'e', 's', 't', "test string", -123, -234, (void *)"string",
+// 123456, 123456);
 // 	fflush(stdout);
-// 	write(1, "\n", 1);
 // 	printf(", returns %d\n", i);	
-// 	i = ft_printf("%%%% %c%c%c%c: This is a %s\n and numbers%d%i, pointer: %p",
-// 		't', 'e', 's', 't', "test string", -123, -234, (void *)"string");
-// 	write(1, "\n", 1);
+// 	i = ft_printf("%%%% %c%c%c%c: This is a %s,\nnumbers %d%i, pointer: %p, \
+// hex: %x or %X", 't', 'e', 's', 't', "test string", -123, -234, (void *)"string",
+// 123456, 123456);
 // 	printf(", returns %d\n", i);
 
 // 	// 1 %c
@@ -294,11 +299,26 @@ int	ft_printf(const char *str, ...)
 // 	i = ft_printf("my  : %%X hexadecimal uppercase %X", INT_MIN);
 // 	printf(", returns %d\n", i);
 
-// 	// 9 NULL
+// 	// 9 errors
 // 	printf("\n");
-// 	printf("9 NULL:\n");
+// 	printf("9 errors:\n");
 // 	i = printf   (NULL);
 // 	printf("returns %d\n", i);
 // 	i = ft_printf(NULL);
+// 	printf("returns %d\n", i);
+
+// 	// i = printf   ("%   ");
+// 	// printf("returns %d\n", i);
+// 	i = ft_printf("%   ");
+// 	printf("returns %d\n", i);
+
+// 	// i = printf   ("%b");
+// 	// printf("returns %d\n", i);
+// 	i = ft_printf("%b");
+// 	printf("returns %d\n", i);
+
+// 	// i = printf   ("%d%", 123);
+// 	// printf("returns %d\n", i);
+// 	i = ft_printf("%d%", 123);
 // 	printf("returns %d\n", i);
 // }
