@@ -6,7 +6,7 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:37:55 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/21 16:31:06 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:34:51 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_printf(const char *str, ...)
 	int		char_count;
 	int		print_count;
 
-	if(str == NULL)
+	if (str == NULL)
 		return (-1);
 	va_start(args, str);
 	char_count = 0;
@@ -81,13 +81,13 @@ int	ft_printf(const char *str, ...)
 // 	int i;
 
 // 	i = printf   ("%%%% %c%c%c%c: This is a %s,\nnumbers %d%i, pointer: %p, \
-// hex: %x or %X", 't', 'e', 's', 't', "test string", -123, -234, (void *)"string",
-// 123456, 123456);
+// hex: %x or %X", 't', 'e', 's', 't', "test string", -123, -234,
+// (void *)"string", 123456, 123456);
 // 	fflush(stdout);
 // 	printf(", returns %d\n", i);	
 // 	i = ft_printf("%%%% %c%c%c%c: This is a %s,\nnumbers %d%i, pointer: %p, \
-// hex: %x or %X", 't', 'e', 's', 't', "test string", -123, -234, (void *)"string",
-// 123456, 123456);
+// hex: %x or %X", 't', 'e', 's', 't', "test string", -123, -234,
+// (void *)"string", 123456, 123456);
 // 	printf(", returns %d\n", i);
 
 // 	// 1 %c
@@ -156,13 +156,19 @@ int	ft_printf(const char *str, ...)
 // 	printf("3:\n");
 
 // 	void *ptr = malloc(20);
-// 	printf(", returns %d\n", i);
 // 	i = printf   ("orig: %%p void ptr %p", ptr);
 // 	printf(", returns %d\n", i);
 
 // 	i = ft_printf("my  : %%p void ptr %p", ptr);
 // 	printf(", returns %d\n", i);
 // 	free(ptr);
+
+// 	int n = INT_MAX;
+// 	i = printf   ("orig: %%p void ptr %p", &n);
+// 	printf(", returns %d\n", i);
+
+// 	i = ft_printf("my  : %%p void ptr %p", &n);
+// 	printf(", returns %d\n", i);
 
 // 	i = printf   ("orig: %%p void ptr %p", NULL);
 // 	printf(", returns %d\n", i);

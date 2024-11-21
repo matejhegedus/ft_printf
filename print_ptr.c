@@ -6,7 +6,7 @@
 /*   By: mhegedus <mhegedus@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:48:39 by mhegedus          #+#    #+#             */
-/*   Updated: 2024/11/19 11:56:43 by mhegedus         ###   ########.fr       */
+/*   Updated: 2024/11/21 18:35:33 by mhegedus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	print_ulong_base(unsigned long nbr, char *base)
 	base_num = ft_strlen(base);
 	if (base_num <= 1 || contains_duplicates(base, base_num)
 		|| contains_plusminus(base))
-		return (char_count);
+		return (-1);
 	write_last_digit_long(nbr, base, base_num, &char_count);
 	return (char_count);
 }
